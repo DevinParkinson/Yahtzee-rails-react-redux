@@ -3,6 +3,7 @@ import {
   TOGGLE_KEPT,
   UPDATE_SCORE,
   RESET_ROLL,
+  NEW_GAME,
 } from '../actions/currentGame';
 
 const scores = [
@@ -41,6 +42,13 @@ const currentGame = (
       return {
           ...state,
           scores: action.scores
+      }
+    case NEW_GAME:
+      return {
+        roll: 0,
+        dice: [...new Array(5)],
+        keep: [],
+        scores: scores.map( s => { return { ...s, score: null  }})
       }
     case RESET_ROLL:
       return {
