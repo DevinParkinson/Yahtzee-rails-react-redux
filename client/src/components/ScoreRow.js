@@ -1,8 +1,10 @@
 import React from 'react';
-import { List,
-  Header,
+import {
+  List,
+  Header
 } from 'semantic-ui-react';
-import { updateScores, resetRoll, } from '../actions/currentGame';
+
+import { updateScores, resetRoll } from '../actions/currentGame';
 import { connect } from 'react-redux';
 import {
   singles,
@@ -15,49 +17,50 @@ const styles = {
 }
 
 class ScoreRow extends React.Component {
-  updateScores = (key) => {
-    let { currentGame: { dice, scores }, dispatch } = this.props;
-    let entry = scores.find( d => d.name === key );
-    dispatch(resetRoll());
+  updateScore = (key) => {
+    const { currentGame: { dice, scores }, dispatch } = this.props;
+    let entry = scores.find( s => s.name === key );
+    dispatch(resetRoll())
 
     if (entry.value)
-      entry.score = singles(entry.value, dice);
+      entry.score = singles(entry.value, dice)
     else if (entry.addAll)
-      entry.score = addAllDice(entry.name, dice);
+      entry.score = addAllDice(entry.name, dice)
     else
-      entry.score = staticScore(entry.name, dice);
+      entry.score = staticScore(entry.name, dice)
 
-    let newScores = scores.map( (score) => {
+    const newScores = scores.map( score => {
       if (score.name === key)
-        return entry;
-      return score;
+        return entry
+      return score
     });
 
-    dispatch(updateScores(newScores));
+    dispatch(updateScores(newScores))
   }
 
   render() {
     const { name, score, currentGame: { roll } } = this.props;
     return (
-    <List.Item>
-      { score === null &&
-          <List.Icon
-            style={styles.pointer}
-            name="check circle outline"
-            color="green"
-            onClick={ roll !== 0 ? () => this.updateScores(name) : f => f
-            }
-          />
-      }
-      <List.Content>
-        <Header as="h4" floated="left">
-          {score || 0}
-        </Header>
-        <Header as="h5" floated="right">
-        {name}
-        </Header>
-      </List.Content>
-    </List.Item>
+      <List.Item>
+        { score === null &&
+            <List.Icon
+              style={styles.pointer}
+              name="check circle outline"
+              color="green"
+              onClick={ roll !== 0 ?
+                () => this.updateScore(name) : f => f
+              }
+            />
+        }
+        <List.Content>
+          <Header as="h4" floated="left">
+            {score || 0}
+          </Header>
+          <Header as="h5" floated="right">
+            {name}
+          </Header>
+        </List.Content>
+      </List.Item>
     )
   }
 }
