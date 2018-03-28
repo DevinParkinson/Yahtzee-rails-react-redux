@@ -1,6 +1,8 @@
 import {
   ROLL_DICE,
   TOGGLE_KEPT,
+  UPDATE_SCORE,
+  RESET_ROLL,
 } from '../actions/currentGame';
 
 const scores = [
@@ -34,6 +36,18 @@ const currentGame = (
         ...state,
         dice: action.dice,
         roll: state.roll + 1
+      }
+    case UPDATE_SCORE:
+      return {
+          ...state,
+          scores: action.scores
+      }
+    case RESET_ROLL:
+      return {
+        ...state,
+        roll: 0,
+        dice: [...new Array(5)],
+        keep: []
       }
     case TOGGLE_KEPT:
       return {
