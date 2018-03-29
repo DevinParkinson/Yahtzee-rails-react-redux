@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom';
-import Game from './components/Game'
 import {
   ProtectedRoute,
   Login,
@@ -14,11 +13,20 @@ import {
   logout,
   validateToken,
 } from './actions/auth';
-import Scores from './components/Scores';
+import Game from './components/Game'
+import Scores from './components/Scores'
+
+const authRoutes = [
+  { url: '/', text: 'Play Yahtzee' },
+  { url: '/scores', text: 'Scores' },
+]
 
 const App = () => (
   <div>
-    <NavBar handleLogout={logout} />
+    <NavBar
+      authRoutes={authRoutes}
+      handleLogout={logout}
+    />
     <FetchUser validateToken={validateToken}>
       <Switch>
         <ProtectedRoute
@@ -26,10 +34,10 @@ const App = () => (
           path="/"
           component={Game}
         />
-      <ProtectedRoute
-        exact
-        path="/scores"
-        component={Scores}
+        <ProtectedRoute
+          exact
+          path="/scores"
+          component={Scores}
         />
         <Route
           exact

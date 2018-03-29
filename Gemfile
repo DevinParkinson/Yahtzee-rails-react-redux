@@ -16,10 +16,12 @@ gem 'jbuilder', '~> 2.5'
 gem 'rack-cors'
 gem 'omniauth'
 gem 'devise_token_auth'
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry'
+  gem 'faker'
 end
 
 group :development do
